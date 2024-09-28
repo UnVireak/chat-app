@@ -20,6 +20,7 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget> {
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
+
           children: [
             const Icon(Icons.search, color: Colors.grey),
             const SizedBox(width: 8),
