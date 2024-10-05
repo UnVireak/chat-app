@@ -1,9 +1,6 @@
 import 'package:chat_app/chat_app_module/screen/contact_screen/contact_list_widget.dart';
-import 'package:chat_app/chat_app_module/theme/logics/cache_theme_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
-import '../../theme/helpers/language_helper.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({super.key});
@@ -16,16 +13,10 @@ class _HomeScreenState extends State<ContactScreen> {
   bool _stretch = true;
   @override
   Widget build(BuildContext context) {
-    CacheLanguage lang = context.watch<CacheThemeLogic>().cacheLang;
-    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
-    // Define button colors based on the theme
-    Color buttonColor = isDarkMode ? Colors.grey[800]! : Colors.blue;
-    Color textColor = isDarkMode ? Colors.white : Colors.black;
     return Scaffold(
       // backgroundColor: Colors.white,
       appBar: AppBar(
-        // backgroundColor: Color(0x1AE6E6E6),
+        backgroundColor: Color(0x1AE6E6E6),
         // titleSpacing: 0,
         title: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15),
@@ -33,7 +24,7 @@ class _HomeScreenState extends State<ContactScreen> {
          mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                lang.contactScreenTitle,
+                "Contacts",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500
@@ -56,7 +47,7 @@ class _HomeScreenState extends State<ContactScreen> {
             expandedHeight: 100,
             stretch: true,
             stretchTriggerOffset: 300.0,
-           // backgroundColor: Color(0x1AE6E6E6),
+           backgroundColor: Color(0x1AE6E6E6),
             onStretchTrigger: () async {
               // Triggers when stretching
             },
@@ -70,10 +61,7 @@ class _HomeScreenState extends State<ContactScreen> {
                     height: 50,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
-                      // color: Color(0x91E0E0E8),
-                      color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.grey[800] // Dark mode color
-                        : Colors.grey[300], // Light mode color,
+                      color: Color(0x91E0E0E8),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(
@@ -83,7 +71,7 @@ class _HomeScreenState extends State<ContactScreen> {
                         Expanded(
                           child: TextField(
                             decoration: InputDecoration(
-                              hintText: lang.contactSearchBox,
+                              hintText: 'Search...',
                               border: InputBorder.none,
                             ),
                           ),

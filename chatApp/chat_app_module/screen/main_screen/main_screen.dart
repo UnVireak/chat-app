@@ -1,10 +1,7 @@
 import 'package:chat_app/chat_app_module/screen/chat_screen/chat_screen.dart';
 import 'package:chat_app/chat_app_module/screen/contact_screen/contact_screen.dart';
 import 'package:chat_app/chat_app_module/screen/more_screen/more_screen.dart';
-import 'package:chat_app/chat_app_module/theme/helpers/language_helper.dart';
-import 'package:chat_app/chat_app_module/theme/logics/cache_theme_logic.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
 
@@ -33,9 +30,8 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-     CacheLanguage lang = context.watch<CacheThemeLogic>().cacheLang;
     return Scaffold(
-      // backgroundColor: Color(0x1AE6E6E6),
+      backgroundColor: Color(0x1AE6E6E6),
       body: PageView(
         controller: controller,
         onPageChanged: (index) {
@@ -52,9 +48,7 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
       bottomNavigationBar: SlidingClippedNavBar(
-        backgroundColor: Theme.of(context).brightness == Brightness.dark
-            ? Color(0xFF1E1E1E) // Dark mode background color
-            : Colors.white, // Light mode background color,
+        backgroundColor: Colors.white,
         onButtonPressed: (index) {
           setState(() {
             selectedIndex = index;
@@ -64,23 +58,20 @@ class _MainScreenState extends State<MainScreen> {
               curve: Curves.easeOutQuad);
         },
         iconSize: 25,
-        // activeColor: Color(0xFF01579B),
-        activeColor:  Theme.of(context).brightness == Brightness.dark
-            ? Colors.white// Dark mode background color
-            : Colors.black54, // Light mode background color,,
+        activeColor: Color(0xFF01579B),
         selectedIndex: selectedIndex,
         barItems: [
           BarItem(
             icon: FontAwesomeIcons.userGroup,
-            title: lang.contactScreenTitle,
+            title: 'Contact',
           ),
           BarItem(
             icon: FontAwesomeIcons.comment,
-            title: lang.chatTitle,
+            title: 'Chat',
           ),
           BarItem(
             icon: FontAwesomeIcons.ellipsis,
-            title: lang.moreScreenTitle,
+            title: 'More',
           ),
         ],
       ),

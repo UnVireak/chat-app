@@ -1,3 +1,4 @@
+import 'package:chat_app/chat_app_module/screen/verification_screen/code_verification_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
@@ -15,10 +16,11 @@ class _PhoneVerificationState extends State<PhoneVerification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Container(
         width: double.infinity,
         child: Padding(
-          padding: EdgeInsets.only(top: 170, right: 20, bottom: 20, left: 20),
+          padding: EdgeInsets.only(top: 10, right: 20, bottom: 20, left: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -107,7 +109,14 @@ class _PhoneVerificationState extends State<PhoneVerification> {
 
               // Text("Selected Country Code: $selectedCountryCode"),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CodeVerificationScreen(), // Replace with your screen widget
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
 
                   // onPrimary: Colors.white,

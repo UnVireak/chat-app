@@ -1,17 +1,12 @@
-import 'package:chat_app/chat_app_module/screen/verification_screen/phone_verification.dart';
-import 'package:chat_app/chat_app_module/theme/logics/cache_theme_logic.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../../theme/helpers/language_helper.dart';
 class GreetingScreen extends StatelessWidget {
   const GreetingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    CacheLanguage lang = context.watch<CacheThemeLogic>().cacheLang;
     return Scaffold(
-      // backgroundColor: Colors.white,
+      backgroundColor: Colors.white,
       body: Container(
         width: double.infinity,
         child: Padding(
@@ -21,26 +16,18 @@ class GreetingScreen extends StatelessWidget {
            children: [
              Image.asset("asset/image/Illustration.png"),
              SizedBox(height: 20,),
-             Text(lang.greeting
-             ,
-          textAlign: TextAlign.center,
+             Text("Connect easily with \nyour family and friends \nover countries"
+             ,textAlign: TextAlign.center,
                style: TextStyle(
                  fontSize: 25,
                  fontWeight: FontWeight.bold, ),
 
              ),
              SizedBox(height: 120,),
-             Text(lang.term),
+             Text("Terms & Privacy Policy"),
              SizedBox(height: 20,),
              ElevatedButton(
-               onPressed: () {
-                 Navigator.push(
-                   context,
-                   MaterialPageRoute(
-                     builder: (context) => PhoneVerification(), // Replace with your screen widget
-                   ),
-                 );
-               },
+               onPressed: () {},
                style: ElevatedButton.styleFrom(
 
                  // onPrimary: Colors.white,
@@ -51,7 +38,7 @@ class GreetingScreen extends StatelessWidget {
                  ),
                  // elevation: 5,  // Shadow/elevation
                ),
-               child: Text(lang.startButton,
+               child: Text('Start messaging',
                  style: TextStyle(
                  fontWeight: FontWeight.w600,
                    fontSize: 20,

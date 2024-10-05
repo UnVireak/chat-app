@@ -1,4 +1,3 @@
-import 'package:chat_app/chat_app_module/screen/setup_profile_screen/setup_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 class CodeVerificationScreen extends StatelessWidget {
@@ -23,11 +22,10 @@ class CodeVerificationScreen extends StatelessWidget {
       borderRadius: BorderRadius.circular(8),
     );
     return Scaffold(
-      appBar: AppBar(),
         body: Container(
           width: double.infinity,
           child: Padding(
-            padding: EdgeInsets.only(top: 10, right: 20, bottom: 20, left: 20),
+            padding: EdgeInsets.only(top: 170, right: 20, bottom: 20, left: 20),
             child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -72,14 +70,7 @@ class CodeVerificationScreen extends StatelessWidget {
               SizedBox( height: 10,),
               // Text("Selected Country Code: $selectedCountryCode"),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SetupProfileScreen(), // Replace with your screen widget
-                    ),
-                  );
-                },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
 
                   // onPrimary: Colors.white,

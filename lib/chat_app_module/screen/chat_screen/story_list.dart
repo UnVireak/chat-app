@@ -17,7 +17,7 @@ class _StoryListWidgetState extends State<StoryListWidget> {
       icon: FontAwesomeIcons.briefcase,
       statusTime: "Last seen 3 hours ago",
       imgSrc:
-      "https://assets.capitalfm.com/2020/17/paul-mescal-normal-people-1588088181-view-1.png",
+          "https://assets.capitalfm.com/2020/17/paul-mescal-normal-people-1588088181-view-1.png",
       hasStory: true,
       isActive: false,
     ),
@@ -28,7 +28,7 @@ class _StoryListWidgetState extends State<StoryListWidget> {
       icon: FontAwesomeIcons.briefcase,
       statusTime: "Online",
       imgSrc:
-      "https://assets.capitalfm.com/2020/17/paul-mescal-normal-people-1588088181-view-1.png",
+          "https://assets.capitalfm.com/2020/17/paul-mescal-normal-people-1588088181-view-1.png",
       hasStory: false,
       isActive: true,
     ),
@@ -39,7 +39,7 @@ class _StoryListWidgetState extends State<StoryListWidget> {
       icon: FontAwesomeIcons.briefcase,
       statusTime: "Last seen 3 hours ago",
       imgSrc:
-      "https://assets.capitalfm.com/2020/17/paul-mescal-normal-people-1588088181-view-1.png",
+          "https://assets.capitalfm.com/2020/17/paul-mescal-normal-people-1588088181-view-1.png",
       hasStory: true,
       isActive: false,
     ),
@@ -50,7 +50,7 @@ class _StoryListWidgetState extends State<StoryListWidget> {
       icon: FontAwesomeIcons.briefcase,
       statusTime: "Online",
       imgSrc:
-      "https://assets.capitalfm.com/2020/17/paul-mescal-normal-people-1588088181-view-1.png",
+          "https://assets.capitalfm.com/2020/17/paul-mescal-normal-people-1588088181-view-1.png",
       hasStory: false,
       isActive: true,
     ),
@@ -61,7 +61,7 @@ class _StoryListWidgetState extends State<StoryListWidget> {
       icon: FontAwesomeIcons.briefcase,
       statusTime: "Last seen 3 hours ago",
       imgSrc:
-      "https://assets.capitalfm.com/2020/17/paul-mescal-normal-people-1588088181-view-1.png",
+          "https://assets.capitalfm.com/2020/17/paul-mescal-normal-people-1588088181-view-1.png",
       hasStory: true,
       isActive: false,
     ),
@@ -72,7 +72,7 @@ class _StoryListWidgetState extends State<StoryListWidget> {
       icon: FontAwesomeIcons.briefcase,
       statusTime: "Online",
       imgSrc:
-      "https://assets.capitalfm.com/2020/17/paul-mescal-normal-people-1588088181-view-1.png",
+          "https://assets.capitalfm.com/2020/17/paul-mescal-normal-people-1588088181-view-1.png",
       hasStory: false,
       isActive: true,
     ),
@@ -83,7 +83,7 @@ class _StoryListWidgetState extends State<StoryListWidget> {
       icon: FontAwesomeIcons.briefcase,
       statusTime: "Last seen 3 hours ago",
       imgSrc:
-      "https://assets.capitalfm.com/2020/17/paul-mescal-normal-people-1588088181-view-1.png",
+          "https://assets.capitalfm.com/2020/17/paul-mescal-normal-people-1588088181-view-1.png",
       hasStory: true,
       isActive: false,
     ),
@@ -94,11 +94,10 @@ class _StoryListWidgetState extends State<StoryListWidget> {
       icon: FontAwesomeIcons.briefcase,
       statusTime: "Online",
       imgSrc:
-      "https://assets.capitalfm.com/2020/17/paul-mescal-normal-people-1588088181-view-1.png",
+          "https://assets.capitalfm.com/2020/17/paul-mescal-normal-people-1588088181-view-1.png",
       hasStory: false,
       isActive: true,
     ),
-
   ];
 
   @override
@@ -106,8 +105,7 @@ class _StoryListWidgetState extends State<StoryListWidget> {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-
-        children:[
+        children: [
           Padding(
             padding: EdgeInsets.only(right: 22),
             child: Column(
@@ -116,19 +114,22 @@ class _StoryListWidgetState extends State<StoryListWidget> {
                   width: 60,
                   height: 60,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).brightness == Brightness.dark
+                          ? Color(0xFF152032) // Dark mode background color
+                          : Color(0xFFF7F7FC), // Light mode background color,,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
                       color: Colors.grey,
                       width: 2,
                     ),
                   ),
-                 child: Center(
-                     child: FaIcon(FontAwesomeIcons.plus),
-                 ),
+                  child: Center(
+                    child: FaIcon(FontAwesomeIcons.plus, color: Colors.grey,),
+                  ),
                 ),
-                SizedBox(height: 10,),
-
+                SizedBox(
+                  height: 10,
+                ),
                 Container(
                   width: 60, // Set width to restrict the space for the text
                   height: 20,
@@ -138,98 +139,92 @@ class _StoryListWidgetState extends State<StoryListWidget> {
                       "Your story",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600
-                      ),
+                      style:
+                          TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),
-
               ],
             ),
           ),
-
           Row(
-          children: itemList.map((e) {
-            return Padding(
-              padding: EdgeInsets.only(left: 0, right: 20, top: 10, bottom: 10),
-              child: InkWell(
-                onDoubleTap: () {},
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-
-                    Stack(
-                      children: [
-                        Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                              color: Colors.grey,
-                              width: 2,
+            children: itemList.map((e) {
+              return Padding(
+                padding:
+                    EdgeInsets.only(left: 0, right: 20, top: 10, bottom: 10),
+                child: InkWell(
+                  onDoubleTap: () {},
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Stack(
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: Colors.grey,
+                                width: 2,
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              // child: Image.network(
+                              //   e.imgSrc ?? "",
+                              //   fit: BoxFit.cover,
+                              // ),
                             ),
                           ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            // child: Image.network(
-                            //   e.imgSrc ?? "",
-                            //   fit: BoxFit.cover,
-                            // ),
-                          ),
-                        ),
-                        Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                              color: e.hasStory == true ? Colors.blue : Colors
-                                  .transparent,
-                              width: 2,
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: e.hasStory == true
+                                    ? Colors.blue
+                                    : Colors.grey,
+                                width: 2,
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.network(
+                                e.imgSrc ?? "",
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.network(
-                              e.imgSrc ?? "",
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-
-                      ],
-                    ),
-                    SizedBox(height: 10,),
-
-                    Container(
-                      width: 60,
-                      height: 20,
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 6),
-                        child: Text(
-                          "${e.title}",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w600
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: 60,
+                        height: 20,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 6),
+                          child: Text(
+                            "${e.title}",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: 11, fontWeight: FontWeight.w600),
                           ),
                         ),
                       ),
-                    ),
-
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            );
-          }).toList(),
-        ),
-    ],
+              );
+            }).toList(),
+          ),
+        ],
       ),
     );
   }

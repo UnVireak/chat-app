@@ -75,7 +75,7 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                   color: e.hasStory == true
                                       ? Colors.blue
                                       : Colors
-                                          .grey,
+                                          .transparent,
                                   width: 2,
                                 ),
                               ),

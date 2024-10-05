@@ -1,9 +1,12 @@
 import 'package:chat_app/chat_app_module/screen/chat_screen/chat_list_widget.dart';
 import 'package:chat_app/chat_app_module/screen/chat_screen/searchBox_widget.dart';
 import 'package:chat_app/chat_app_module/screen/chat_screen/story_list.dart';
+import 'package:chat_app/chat_app_module/theme/logics/cache_theme_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/chat_app_module/screen/contact_screen/contact_list_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import '../../theme/helpers/language_helper.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -16,10 +19,11 @@ class _HomeScreenState extends State<ChatScreen> {
   bool _stretch = true;
   @override
   Widget build(BuildContext context) {
+    CacheLanguage lang = context.watch<CacheThemeLogic>().cacheLang;
     return Scaffold(
       // backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color(0x1AE6E6E6),
+        // backgroundColor: Color(0x1AE6E6E6),
         // titleSpacing: 0,
         title: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15),
@@ -27,7 +31,7 @@ class _HomeScreenState extends State<ChatScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Chats",
+                lang.chatTitle,
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500

@@ -1,3 +1,4 @@
+import 'package:chat_app/chat_app_module/screen/main_screen/main_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -13,10 +14,11 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Container(
         width: double.infinity,
         child: Padding(
-        padding: EdgeInsets.only(top: 150, right: 20, bottom: 20, left: 20),
+        padding: EdgeInsets.only(top: 20, right: 20, bottom: 20, left: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -96,7 +98,13 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
             ),
             SizedBox(height: 50,),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => MainScreen()),
+                      (Route<dynamic> route) => false, // Remove all previous routes
+                );
+              },
               style: ElevatedButton.styleFrom(
 
                 // onPrimary: Colors.white,
