@@ -6,3 +6,4 @@ void main() {
   runApp(const ChatApp());
 }
 
+// This is my new line
