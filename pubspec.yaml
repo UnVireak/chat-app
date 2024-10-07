@@ -42,7 +42,11 @@ dependencies:
   shared_preferences: ^2.2.3
   flutter_secure_storage: ^9.2.2
   provider: ^6.1.2
-
+  flutter_screenutil: ^5.9.3
+  custom_clippers: ^2.0.0
+  image_picker: ^1.1.2
+  flutter_image_compress: ^2.3.0
+  permission_handler: ^11.3.1
 
 dev_dependencies:
   flutter_test:

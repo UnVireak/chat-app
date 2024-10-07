@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:chat_app/chat_app_module/theme/logics/cache_theme_logic.dart';
 import 'package:chat_app/chat_app_module/theme/switch_language_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChatApp extends StatelessWidget {
   const ChatApp({super.key});
@@ -31,11 +32,14 @@ class ChatApp extends StatelessWidget {
               themeMode = ThemeMode.system;
           }
 
-          return MaterialApp(
-            theme: ThemeData.light(),
-            darkTheme: ThemeData.dark(),
-            themeMode: themeMode, // Apply the selected theme mode here
-            home: GreetingScreen(),
+          return ScreenUtilInit(
+            designSize: Size(375, 812),
+            child: MaterialApp(
+              theme: ThemeData.light(),
+              darkTheme: ThemeData.dark(),
+              themeMode: themeMode, // Apply the selected theme mode here
+              home: GreetingScreen(),
+            ),
           );
         },
       ),

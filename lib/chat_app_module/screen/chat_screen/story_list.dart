@@ -124,7 +124,10 @@ class _StoryListWidgetState extends State<StoryListWidget> {
                     ),
                   ),
                   child: Center(
-                    child: FaIcon(FontAwesomeIcons.plus, color: Colors.grey,),
+                    child: FaIcon(FontAwesomeIcons.plus, color:  Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white// Dark mode background color
+                        : Colors.black54, // Light mode background color,,,
+                    ),
                   ),
                 ),
                 SizedBox(

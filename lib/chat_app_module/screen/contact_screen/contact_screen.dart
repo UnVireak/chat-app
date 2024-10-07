@@ -1,3 +1,4 @@
+import 'package:chat_app/chat_app_module/config/config.dart';
 import 'package:chat_app/chat_app_module/screen/contact_screen/contact_list_widget.dart';
 import 'package:chat_app/chat_app_module/theme/logics/cache_theme_logic.dart';
 import 'package:flutter/material.dart';
@@ -71,9 +72,7 @@ class _HomeScreenState extends State<ContactScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
                       // color: Color(0x91E0E0E8),
-                      color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.grey[800] // Dark mode color
-                        : Colors.grey[300], // Light mode color,
+                      color: AppTheme.bgTextFieldColor(context),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(

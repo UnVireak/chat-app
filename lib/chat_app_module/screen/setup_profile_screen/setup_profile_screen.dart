@@ -1,8 +1,16 @@
+import 'package:chat_app/chat_app_module/config/config.dart';
 import 'package:chat_app/chat_app_module/screen/main_screen/main_screen.dart';
+import 'package:chat_app/chat_app_module/theme/logics/cache_theme_logic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'dart:io';
+import '../../config/image_picker.dart';
+import '../../theme/helpers/language_helper.dart';
 class SetupProfileScreen extends StatefulWidget {
   const SetupProfileScreen({super.key});
 
@@ -13,6 +21,19 @@ class SetupProfileScreen extends StatefulWidget {
 class _SetupProfileScreenState extends State<SetupProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    CacheLanguage lang = context.watch<CacheThemeLogic>().cacheLang;
+
+    XFile? xFile;
+
+    void updateImage(ImageSource source) async {
+      final XFile? pickedFile = await browseImage(source);
+      if (pickedFile != null) {
+        setState(() {
+          xFile = pickedFile;
+        });
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(),
       body: Container(
@@ -28,52 +49,68 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                   width: 120,
                   height: 120,
                   decoration: BoxDecoration(
-                    color: Color(0xFFF2F6F7),
+                    color: AppTheme.bgTextFieldColor(context),
                     borderRadius: BorderRadius.circular(100),
+                    image: xFile != null
+                        ? DecorationImage(
+                      image: FileImage(File(xFile!.path)),
+                      fit: BoxFit.cover,
+                    )
+                        : null, // Only set the image if xFile is not null
                   ),
-                 child: Center(
-                   child: FaIcon(FontAwesomeIcons.userLarge, size: 60,),
-                 ),
-                ),
-                Positioned(
-                  top: 90,
-                  left: 90,
-                  child: Container(
-                    width: 10,
-                    height: 10,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(100),
+                  child: xFile == null
+                      ? Center(
+                    child: FaIcon(
+                      FontAwesomeIcons.userLarge,
+                      size: 60,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
                     ),
-                    child: Center(
-                      child: IconButton(
-                        onPressed: () {},
-                        padding: EdgeInsets.zero,
-                        icon: FaIcon(
-                          FontAwesomeIcons.circlePlus,
-                          color: Colors.black,
-                          size: 25,
-                        ),
-                      ),
+                  )
+                      : null, // No child if there is an image
+                ),
+
+
+
+                Positioned(
+                  top: 80,
+                  left: 80,
+                  child: IconButton(
+                    onPressed: () {
+                      updateImage(ImageSource.camera);
+                    },
+                    icon: FaIcon(
+                      FontAwesomeIcons.circlePlus,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                      size: 25,
+                    ),
+                    padding: EdgeInsets.zero, // Keeps the button size minimal
+                    constraints: BoxConstraints(
+                      minWidth: 40, // Ensure touchable area
+                      minHeight: 40,
                     ),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 20,),
+
+            SizedBox(height: 30.h,),
             Container(
-              height: 50,
+              height: 50.h,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Color(0xFFF2F6F7),
+                color: AppTheme.bgTextFieldColor(context),
                     borderRadius: BorderRadius.circular(10)
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: 10.h),
                 child: TextField(
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'First Name (Required)',
+                    hintText: lang.firstNamePlaceHolder,
                   ),
                 ),
               ),
@@ -83,7 +120,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
               height: 50,
               width: double.infinity,
               decoration: BoxDecoration(
-                  color: Color(0xFFF2F6F7),
+                  color: AppTheme.bgTextFieldColor(context),
                   borderRadius: BorderRadius.circular(10)
               ),
               child: Padding(
@@ -91,7 +128,7 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
                 child: TextField(
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Last Name (Required',
+                    hintText: lang.lastNamePlaceHolder,
                   ),
                 ),
               ),
@@ -109,21 +146,17 @@ class _SetupProfileScreenState extends State<SetupProfileScreen> {
 
                 // onPrimary: Colors.white,
                 backgroundColor: Color(0xFF214BF3),
-                minimumSize: Size(double.infinity, 60), // Button size
+                // minimumSize: Size(double.infinity, 60), // Button size
+                fixedSize: Size(327.w, 52.h),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20), // Border radius
                 ),
                 // elevation: 5,  // Shadow/elevation
               ),
-              child: Text('Continue',
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
-                    color: Colors.white
-                ),),
+              child: Text(lang.continueBtn,
+                style: AppTheme.mediumTextStyleButton),
             )
           ],
-
         ),
         ),
       ),

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../config/config.dart';
 import '../../theme/helpers/language_helper.dart';
 
 class MoreScreen extends StatefulWidget {
@@ -59,13 +60,16 @@ class _MoreScreenState extends State<MoreScreen> {
                   width: 80,
                   height: 80,
                   decoration: BoxDecoration(
-                    color: Color(0xFFF2F6F7),
+                    color: AppTheme.bgTextFieldColor(context),
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: Center(
                     child: FaIcon(
                       FontAwesomeIcons.userLarge,
                       size: 40,
+                      color:  Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
                     ),
                   ),
                 ),

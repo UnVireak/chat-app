@@ -11,7 +11,7 @@ class LanguageChangeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(cacheLang.moreScreenTitle), // Dynamic title based on the selected language
+        title: Text(cacheLang.language), // Dynamic title based on the selected language
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -19,7 +19,8 @@ class LanguageChangeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            // English Language Selection
+            // English Language Sele
+            // ction
             ListTile(
               title: Text('English'),
               trailing: Switch(

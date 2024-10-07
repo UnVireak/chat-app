@@ -1,7 +1,12 @@
+import 'package:chat_app/chat_app_module/config/config.dart';
 import 'package:chat_app/chat_app_module/screen/chat_screen/chat_list_widget.dart';
+import 'package:chat_app/chat_app_module/theme/logics/cache_theme_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:custom_clippers/custom_clippers.dart';
+import 'package:provider/provider.dart';
 
+import '../../theme/helpers/language_helper.dart';
 class ChatMessage {
   final String message;
   final int sender; // 0 for receiver, 1 for sender
@@ -15,7 +20,7 @@ class ChatDetailScreen extends StatelessWidget {
   ChatDetailScreen({required this.item});
   final List<ChatMessage> messages = [
     ChatMessage(message: "Hello!", sender: 0),
-    ChatMessage(message: "Hi, How are you?", sender: 1),
+    ChatMessage(message: "Hi, How are you? Hi, How are you? Hi, How are you?", sender: 1),
     ChatMessage(message: "I'm good, thank you!", sender: 0),
     ChatMessage(message: "Great to hear!", sender: 1),
     ChatMessage(message: "Hello!", sender: 0),
@@ -29,6 +34,7 @@ class ChatDetailScreen extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    CacheLanguage lang = context.watch<CacheThemeLogic>().cacheLang;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0x1AE6E6E6),
@@ -68,7 +74,7 @@ class ChatDetailScreen extends StatelessWidget {
         itemCount: messages.length,
           itemBuilder: (context, index) {
             final message = messages[index];
-            return buildChatBubble(message);
+            return buildChatBubble(message, context);
           },
         ),
       ),
@@ -81,7 +87,7 @@ class ChatDetailScreen extends StatelessWidget {
                     child: Container(
                       height: 50,
                       decoration: BoxDecoration(
-                        color: Colors.grey,
+                        color: AppTheme.bgTextFieldColor(context),
                         borderRadius: BorderRadius.circular(10)
                       ),
                       child: Padding(
@@ -89,7 +95,7 @@ class ChatDetailScreen extends StatelessWidget {
                         child: TextField(
                           decoration: InputDecoration(
 
-                            hintText: "Type a message...",
+                            hintText: lang.chatTextField,
                            border: InputBorder.none
                           ),
                         ),
@@ -111,23 +117,59 @@ class ChatDetailScreen extends StatelessWidget {
     );
   }
 }
-Widget buildChatBubble(ChatMessage message) {
-  bool isSender = message.sender == 1; // 1 means the sender (right), 0 means receiver (left)
+
+
+Widget buildChatBubble(ChatMessage message, BuildContext context) {
+  bool isSender = message.sender == 1;
+
+  // Determine the bubble color based on the sender and the current theme
+  Color bubbleColor;
+  if (isSender) {
+    // For sender (1)
+    bubbleColor = Theme.of(context).brightness == Brightness.light
+        ? Color(0xDB002DE3) // Light mode color for sender
+        : Color(0xE33860FF); // Dark mode color for sender
+  } else {
+    // For receiver (0)
+    bubbleColor = Theme.of(context).brightness == Brightness.light
+        ? Color(0xFFFFFFFF) // Light mode color for receiver
+        : Color(0xFF0F1828); // Dark mode color for receiver
+  }
+  // color text
+  Color textColor;
+
+  if (isSender) {
+    // Always return white color for sender (1)
+    textColor = Colors.white;
+  } else {
+    // For receiver (0), check the theme
+    if (Theme.of(context).brightness == Brightness.light) {
+      textColor = Colors.black; // Light mode: black text
+    } else {
+      textColor = Colors.white; // Dark mode: white text
+    }
+  }
 
   return Align(
     alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
-    child: Container(
-      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: isSender ? Colors.blue[200] : Colors.grey[300],
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Text(
-        message.message,
-        style: TextStyle(fontSize: 16),
+    child: Padding(
+      padding: EdgeInsets.only(left: isSender ? 80 : 0, right: isSender ? 0 : 80), // Adjust padding based on sender
+      child: ClipPath(
+        clipper: isSender
+            ? LowerNipMessageClipper(MessageType.send) // For sender messages, use LowerNipMessageClipper
+            : UpperNipMessageClipper(MessageType.receive), // For receiver messages, use UpperNipMessageClipper
+        child: Container(
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: bubbleColor, // Use the determined color
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(
+            message.message,
+            style: TextStyle(fontSize: 16, color: textColor), // Set text color to black
+          ),
+        ),
       ),
     ),
   );
 }
-

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:chat_app/chat_app_module/theme/logics/cache_theme_logic.dart'; // Make sure to import your CacheThemeLogic
+import 'package:chat_app/chat_app_module/theme/logics/cache_theme_logic.dart';
+
+import 'helpers/language_helper.dart';
 
 class DarkModeSelectionScreen extends StatefulWidget {
   @override
@@ -45,9 +47,10 @@ class _DarkModeSelectionScreenState extends State<DarkModeSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    CacheLanguage lang = context.watch<CacheThemeLogic>().cacheLang;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dark mode'),
+        title: Text(lang.darkMode),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -58,7 +61,7 @@ class _DarkModeSelectionScreenState extends State<DarkModeSelectionScreen> {
       body: Column(
         children: [
           RadioListTile<String>(
-            title: Text('On'),
+            title: Text(lang.changeToDarkMode),
             value: 'On',
             groupValue: _selectedOption,
             onChanged: (value) {
@@ -70,7 +73,7 @@ class _DarkModeSelectionScreenState extends State<DarkModeSelectionScreen> {
             controlAffinity: ListTileControlAffinity.trailing,
           ),
           RadioListTile<String>(
-            title: Text('Off'),
+            title: Text(lang.chaneToLightMode),
             value: 'Off',
             groupValue: _selectedOption,
             onChanged: (value) {
@@ -85,10 +88,10 @@ class _DarkModeSelectionScreenState extends State<DarkModeSelectionScreen> {
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('System'),
+                Text(lang.changeToSystemMode),
                 SizedBox(height: 4),
                 Text(
-                  "We'll adjust your appearance based on your device's system settings.",
+                  lang.changeToSystemModeDetail,
                   style: TextStyle(
                     color: Colors.grey,
                     fontSize: 14,
