@@ -37,7 +37,7 @@ class ChatDetailScreen extends StatelessWidget {
     CacheLanguage lang = context.watch<CacheThemeLogic>().cacheLang;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0x1AE6E6E6),
+        // backgroundColor: Color(0x1AE6E6E6),
         titleSpacing: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -38,7 +38,7 @@ class AppTheme {
   static TextStyle largeFontTextStyle(BuildContext context) {
     return TextStyle(
       fontSize: 24.sp,
-      fontWeight: FontWeight.bold,
+      // fontWeight: FontWeight.bold,
       color: getTextColor(context),
     );
   }

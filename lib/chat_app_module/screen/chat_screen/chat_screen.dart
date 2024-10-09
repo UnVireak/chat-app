@@ -34,7 +34,7 @@ class _HomeScreenState extends State<ChatScreen> {
                 lang.chatTitle,
                 style: TextStyle(
                     fontSize: 20,
-                    fontWeight: FontWeight.w500
+                    // fontWeight: FontWeight.w500
                 ),
               ),
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:chat_app/chat_app_module/theme/logics/cache_theme_logic.dart';
 import 'package:chat_app/chat_app_module/theme/switch_language_screen.dart';
 import 'package:chat_app/chat_app_module/theme/switch_theme_screen.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../config/config.dart';
 import '../../theme/helpers/language_helper.dart';
@@ -17,7 +20,22 @@ class MoreScreen extends StatefulWidget {
 }
 
 class _MoreScreenState extends State<MoreScreen> {
+  final String _imageKey = 'profile_image';
+  String? _imagePath;
 
+  @override
+  void initState() {
+    super.initState();
+    _loadProfileImage();
+  }
+
+  // Load the saved profile image from SharedPreferences
+  void _loadProfileImage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _imagePath = prefs.getString(_imageKey);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,22 +74,30 @@ class _MoreScreenState extends State<MoreScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
+         Container(
                   width: 80,
                   height: 80,
                   decoration: BoxDecoration(
                     color: AppTheme.bgTextFieldColor(context),
                     borderRadius: BorderRadius.circular(100),
+                    image: _imagePath != null
+                        ? DecorationImage(
+                            image: FileImage(File(_imagePath!)),
+                            fit: BoxFit.cover,
+                          )
+                        : null,
                   ),
-                  child: Center(
-                    child: FaIcon(
-                      FontAwesomeIcons.userLarge,
-                      size: 40,
-                      color:  Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.black,
-                    ),
-                  ),
+                  child: _imagePath == null
+                      ? Center(
+                          child: FaIcon(
+                            FontAwesomeIcons.userLarge,
+                            size: 40,
+                            color: Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white
+                                : Colors.black,
+                          ),
+                        )
+                      : null,
                 ),
                 SizedBox(width: 20),
                 Expanded(

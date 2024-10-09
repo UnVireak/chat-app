@@ -7,39 +7,38 @@ import 'package:image_picker/image_picker.dart';
 
 Future<XFile?> browseImage(ImageSource source) async {
   final ImagePicker picker = ImagePicker();
-  final XFile? image = await picker.pickImage(source: source);
+  try {
+    final XFile? image = await picker.pickImage(source: source);
+    if (image == null) {
+      debugPrint('No image selected.');
+      return null;
+    }
 
-  if (image == null) {
+    Uint8List imageBytes = await image.readAsBytes();
+    debugPrint('Original image size: ${imageBytes.lengthInBytes / 1024} KB');
+
+    int quality = imageBytes.lengthInBytes > 1 * 1024 * 1024
+        ? 80
+        : imageBytes.lengthInBytes > 0.5 * 1024 * 1024
+            ? 40
+            : imageBytes.lengthInBytes > 300 * 1024
+                ? 80
+                : 100;
+
+    final compressedBytes = await FlutterImageCompress.compressWithList(
+      imageBytes,
+      quality: quality,
+      format: CompressFormat.jpeg,
+    );
+
+    debugPrint('Compressed image size: ${compressedBytes.lengthInBytes / 1024} KB');
+
+    final tempFile = File('${Directory.systemTemp.path}/compressed_${DateTime.now().millisecondsSinceEpoch}.jpg');
+    await tempFile.writeAsBytes(compressedBytes);
+
+    return XFile(tempFile.path);
+  } catch (e) {
+    debugPrint('Error picking image: $e');
     return null;
   }
-
-  Uint8List imageBytes = Uint8List.fromList(await image.readAsBytes());
-
-  debugPrint('Original image size: ${imageBytes.lengthInBytes / 1024} KB');
-
-  int quality;
-  if (imageBytes.lengthInBytes > 1 * 1024 * 1024) {
-    quality = 80;
-  } else if (imageBytes.lengthInBytes > 0.5 * 1024 * 1024) {
-    quality = 40;
-  } else if (imageBytes.lengthInBytes > 300 * 1024) {
-    quality = 80;
-  } else {
-    quality = 100;
-  }
-
-  var result = await FlutterImageCompress.compressWithList(
-    imageBytes,
-    quality: quality,
-    format: CompressFormat.jpeg,
-  );
-
-  debugPrint('Compressed image size: ${result.lengthInBytes / 1024} KB');
-
-  final tempFile = File(
-    '${Directory.systemTemp.path}/compressed_${DateTime.now().millisecondsSinceEpoch}.jpg',
-  );
-  await tempFile.writeAsBytes(result);
-
-  return XFile(tempFile.path);
 }
